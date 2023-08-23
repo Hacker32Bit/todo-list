@@ -1,5 +1,5 @@
 const LastUpdate = () => {
-    return (<small>Updated: 2023/08/23 21:45</small>);
+    return (<time dateTime="2023-08-12">Publish date: now</time>);
 }
 
 export default LastUpdate;
