@@ -1,5 +1,11 @@
+import LastUpdate from "./LastUpdate";
+
 const Header = () => {
-    return <h1>Todo List</h1>;
+    return (<div>
+        <h1>Todo List</h1>
+        <LastUpdate />
+        </div>
+    );
 }
 
 export default Header;
