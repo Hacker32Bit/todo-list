@@ -9,13 +9,7 @@ const UsersList = ({usersList}) => {
     });    
 
     return (
-        <table>
-            <tr>
-            <th>Name</th>
-            <th>Age</th>
-            </tr>
-            {data}
-        </table> 
+        <ul>{data}</ul> 
     );
 }
 

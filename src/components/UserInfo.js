@@ -5,10 +5,7 @@ const UserInfo = ({name, age, status}) => {
     }
 
     return (
-        <tr style={style}>
-            <th>{name}</th>
-            <th>{age}</th>
-        </tr>
+        <li style={style}>{name}, {age} years old</li>
     );
 }
 
