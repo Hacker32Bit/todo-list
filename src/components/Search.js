@@ -1,5 +1,12 @@
+import Button from "./Button";
+
 const Search = () => {
-    return <input type="text" placeholder="Type for search"/>
+    return (
+        <div>
+        <input type="text" placeholder="Type for search"/>
+        <Button text="Submit" colorName="red"/>
+        </div>
+    );
 }
 
 export default Search;
