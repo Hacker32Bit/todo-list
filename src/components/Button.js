@@ -1,10 +1,7 @@
-const Button = ({text, colorName}) => {
-
-    const style = {
-        color: colorName ? colorName : "black"
-    }
-
-    return (<button style={style}>{text}</button>);
+const Button = ({text, color = "black"}) => {
+    return (
+        <button style={{ color }}>{text}</button>
+        );
 }
 
 export default Button;
