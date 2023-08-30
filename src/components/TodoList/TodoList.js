@@ -1,4 +1,6 @@
 import TodoListItem from "./TodoListItem/TodoListItem";
+import "../Button/button.css"
+import "./todolist.css"
 
 const TodoList = () => {
 
@@ -16,7 +18,7 @@ const TodoList = () => {
   });
 
     return (
-      <ul>{data}</ul>
+      <ul className="todolist">{data}</ul>
     );
 }
 
