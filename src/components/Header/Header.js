@@ -1,13 +1,23 @@
+import { Component } from "react";
+
 import "./header.css";
 
-const Header = () => {
-  return (
-    <div className="header">
-      <h1>My Todo List</h1>
-      <small>Done: 12</small>
-      <small>Important: 34</small>
-    </div>
-  );
-};
+class Header extends Component {
+  
+  render() {
+    const { done, important } = this.props;
+    return (
+      <div className="header">
+        <h1>
+          My Todo List
+          <div className="header-info">
+            <span className="header-info">Done: {done}</span>
+            <span className="header-info">Important: {important}</span>
+          </div>
+        </h1>
+      </div>
+    );
+  }
+}
 
 export default Header;
