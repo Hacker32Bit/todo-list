@@ -13,6 +13,7 @@ const App = () => {
     { text: "Learn React", important: false, id: 3 },
     { text: "Learn TypeScript", important: true, id: 4 },
     { text: "Learn Node.js", important: false, id: 5 },
+    { text: "Learn extend Node.js", important: false, id: 6 },
   ];
 
   return (
