@@ -1,5 +1,4 @@
 import { Component } from "react";
-import ErrorMessage from "../ErrorMessage";
 
 import "./add-item.css";
 
@@ -14,18 +13,24 @@ class AddItem extends Component {
     });
   };
 
+  onBtnClick = () => {
+    this.props.onAddItem(this.state.inputValue);
+
+    this.setState({
+      inputValue: "",
+    });
+  };
+
   render() {
     return (
       <div className="additem">
-      <div>
-        {this.state.inputValue}
-      </div>
         <input
           type="text"
+          value={this.state.inputValue}
           placeholder="Item text..."
           onChange={this.onInputChange}
         />
-        <button>Add item</button>
+        <button onClick={this.onBtnClick}>Add item</button>
       </div>
     );
   }
