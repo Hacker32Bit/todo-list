@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Search from "./components/Search";
 import TodoList from "./components/TodoList";
 import AddItem from "./components/AddItem";
+import Message from "./components/Message";
 import "./index.css";
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
       <Search />
       <TodoList items={items}/>
       <AddItem />
+      <Message type="error" text="some text" />
     </div>
   );
 };
