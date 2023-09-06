@@ -33,12 +33,22 @@ onAddItem = (text) => {
   })
 }
 
+onDelete = (elementId) => {
+    this.setState((array) => {
+    array.items.splice(array.items.findIndex((item) => item.id === elementId), 1);
+    
+    return {
+      items: array.items
+    }
+  })
+}
+
   render() {
   return (
     <div className="app">
       <Header done={8} important={23}/>
       <Search />
-      <TodoList items={this.state.items}/>
+      <TodoList items={this.state.items} onDelete={this.onDelete}/>
       <AddItem onAddItem={this.onAddItem}/>
     </div>
   );
