@@ -6,11 +6,17 @@ import "./todo-list.css";
 
 class TodoList extends Component { 
 
-  render () {
-    const { items } = this.props
+   render () {
+    const { items, deleteItem } = this.props
 
     const data = items.map(({ text, important, id }) => {
-      return (<TodoListItem text={text} important={important} key={id} id={id} onDelete={this.props.onDelete}/>);
+      return (<TodoListItem 
+        text={text} 
+        important={important} 
+        key={id}
+        id={id}
+        deleteItem={deleteItem} />
+        );
     });
 
     return (

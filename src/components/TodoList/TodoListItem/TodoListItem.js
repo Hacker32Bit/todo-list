@@ -25,12 +25,12 @@ class TodoListItem extends Component {
     console.log("Important - ", this.state.isImportant)
   }
 
-  onDelete = (elementId) => {
-    return this.props.onDelete(this.elementId);
+  onDelete = () => {
+    this.props.deleteItem(this.props.id)
   }
 
   render() {
-    const { text, id, onDelete } = this.props;
+    const { text, id } = this.props;
     const { isDone, isImportant } = this.state;
 
     const textStyle = {
@@ -52,7 +52,7 @@ class TodoListItem extends Component {
           <button className="item-btn-important" onClick={ this.onImportant }>
             <FaInfo />
           </button>
-          <button className="item-btn-remove" onClick={ () => onDelete(id) }>
+          <button className="item-btn-remove" onClick={ this.onDelete }>
             <FaTrash />
           </button>
         </span>
