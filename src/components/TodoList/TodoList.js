@@ -7,10 +7,10 @@ import "./todo-list.css";
 class TodoList extends Component { 
 
   render () {
-    const { items, onDelete } = this.props
+    const { items } = this.props
 
     const data = items.map(({ text, important, id }) => {
-      return (<TodoListItem text={text} important={important} key={id} id={id} onDelete={onDelete}/>);
+      return (<TodoListItem text={text} important={important} key={id} id={id} onDelete={this.props.onDelete}/>);
     });
 
     return (

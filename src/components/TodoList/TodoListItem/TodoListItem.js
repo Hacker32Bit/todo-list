@@ -26,7 +26,7 @@ class TodoListItem extends Component {
   }
 
   onDelete = (elementId) => {
-    return this.onDelete(this.elementId);
+    return this.props.onDelete(this.elementId);
   }
 
   render() {
