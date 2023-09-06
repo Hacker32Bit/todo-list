@@ -5,6 +5,7 @@ import Search from "./components/Search";
 import TodoList from "./components/TodoList";
 import AddItem from "./components/AddItem";
 import "./index.css";
+import { type } from "@testing-library/user-event/dist/type";
 
 class App extends Component {
   state = {
@@ -24,7 +25,7 @@ class App extends Component {
     const newItem = {
       text,
       important: false,
-      id: id,
+      id,
     };
 
     this.setState((prevState) => {
@@ -52,12 +53,31 @@ class App extends Component {
     });
   };
 
+  editItem = (id, text) => {
+    this.setState(({ items }) => {
+      const idx = items.findIndex((el) => el.id === id);
+      // items.splice(idx, 1)
+      // [a, b, c, d, e]
+      // [a, b] [d, e]
+
+      console.log(idx, "---------", items[idx]);
+      const newItem = {text: text, important: items[idx].important, id: items[idx].id }
+
+      return {
+        items: [
+          ...items.slice(0, idx),
+          newItem,
+          ...items.slice(idx + 1)],
+      };
+    });
+  }
+
   render() {
     return (
       <div className="app">
         <Header done={8} important={23} />
         <Search />
-        <TodoList items={this.state.items} deleteItem={this.deleteItem} />
+        <TodoList items={this.state.items} deleteItem={this.deleteItem} editItem={this.editItem}/>
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );
