@@ -19,10 +19,12 @@ class App extends Component {
   };
 
   onAddItem = (text) => {
+    const id = this.state.items.length ? this.state.items[this.state.items.length - 1].id + 1 : 1
+
     const newItem = {
       text,
       important: false,
-      id: this.state.items[this.state.items.length - 1].id + 1,
+      id: id,
     };
 
     this.setState((prevState) => {
