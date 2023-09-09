@@ -1,27 +1,31 @@
-import { Component } from "react";
+  import { Component } from "react";
 
 import "./todo-list-item.css";
-import { FaTrash, FaInfo, FaCheck, FaPenToSquare, FaTheRedYeti } from "react-icons/fa6";
+import { FaTrash, FaInfo, FaCheck, FaPenToSquare, FaCircleCheck } from "react-icons/fa6";
 
 class TodoListItem extends Component {
   state = {
     isDone: false,
     isImportant: this.props.important,
     isEdit: false,
-    inputValue: "",
+    text: this.props.text
   };
 
   onDone = () => {
-    this.setState({
-      isDone: !this.state.isDone,
+    this.setState(({ isDone }) => {
+      return {
+        isDone: !isDone
+      }
     });
 
     console.log("Done - ", this.props.text);
   };
 
   onImportant = () => {
-    this.setState({
-      isImportant: !this.state.isImportant,
+    this.setState(({ isImportant }) => {
+      return {
+        isImportant: !isImportant
+      }
     });
 
     console.log("Important - ", this.state.isImportant);
@@ -38,24 +42,24 @@ class TodoListItem extends Component {
   };
 
   onEdit = () => {
-
-    if (!this.state.isEdit) {
-      this.setState({
-        inputValue: this.props.text,
-      });
-    }
-    this.props.editItem(this.props.id, this.state.inputValue)
-
-    this.setState({
-      isEdit: !this.state.isEdit,
-    });
+    this.setState(({ isEdit }) => {
+      return {
+        isEdit: !isEdit
+      }
+    })
     
-    //console.log(this.state.isEdit)
   };
 
+onInputEdit = (event) => {
+  this.setState(({ text }) => {
+    return {
+      text: event.target.value
+    }
+  })
+}
+
   render() {
-    const { text, id, editItem } = this.props;
-    const { isDone, isImportant } = this.state;
+    const { isDone, isImportant, isEdit, text } = this.state;
 
     const textStyle = {
       textDecoration: isDone ? "line-through" : "none",
@@ -64,14 +68,20 @@ class TodoListItem extends Component {
     };
 
     return (
-      <li className="list-item" id={id}>
-        <span className="item-text" style={textStyle} onClick={this.onDone}>
-          {this.state.isEdit ? <input type="text" value={this.state.inputValue} onChange={this.onInputChange}></input> : text}
-        </span>
-
+      <li className="list-item">
+        {
+          isEdit ? (
+            <input type="text" className="list-item-edit-input" value={text}
+            onChange={this.onInputEdit}></input>
+          ) : (
+            <span className="item-text" style={textStyle} onClick={this.onDone}>
+            {text}
+          </span>
+          )
+        }
         <span className="item-btns">
-          <button>
-            <FaPenToSquare onClick={this.onEdit} />
+          <button onClick={this.onEdit}>
+            {isEdit ? <FaCircleCheck /> : <FaPenToSquare /> }
           </button>
           <button className="item-btn-done" onClick={this.onDone}>
             <FaCheck />

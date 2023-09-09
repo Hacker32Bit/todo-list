@@ -5,7 +5,6 @@ import Search from "./components/Search";
 import TodoList from "./components/TodoList";
 import AddItem from "./components/AddItem";
 import "./index.css";
-import { type } from "@testing-library/user-event/dist/type";
 
 class App extends Component {
   state = {
