@@ -18,6 +18,21 @@ class App extends Component {
     ],
   };
 
+  // text = js
+  /**
+   * items: [
+   *  { text: "Learn JS", important: true, id: 1 },
+   *  { text: "Learn Node.js", important: false, id: 5 },
+   *  { text: "Learn extend Node.js", important: false, id: 6 },
+   * ]
+   */
+  handleSearch = (text) => {
+    const { items } = this.state
+    text = text.toLowerCase()
+    
+    return items.filter((item) => item.text.toLowerCase().includes(text))
+  } 
+
   onAddItem = (text) => {
     const id = this.state.items.length ? this.state.items[this.state.items.length - 1].id + 1 : 1
 
@@ -53,6 +68,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.handleSearch("jS"))
     return (
       <div className="app">
         <Header done={8} important={23} />
