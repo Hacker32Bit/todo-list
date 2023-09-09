@@ -5,3 +5,6 @@ const validateInput = (text) => {
   return false;
 }
 
+export {
+    validateInput,
+}
