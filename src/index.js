@@ -52,31 +52,12 @@ class App extends Component {
     });
   };
 
-  editItem = (id, text) => {
-    this.setState(({ items }) => {
-      const idx = items.findIndex((el) => el.id === id);
-      // items.splice(idx, 1)
-      // [a, b, c, d, e]
-      // [a, b] [d, e]
-
-      console.log(idx, "---------", items[idx]);
-      const newItem = {text: text, important: items[idx].important, id: items[idx].id }
-
-      return {
-        items: [
-          ...items.slice(0, idx),
-          newItem,
-          ...items.slice(idx + 1)],
-      };
-    });
-  }
-
   render() {
     return (
       <div className="app">
         <Header done={8} important={23} />
         <Search />
-        <TodoList items={this.state.items} deleteItem={this.deleteItem} editItem={this.editItem}/>
+        <TodoList items={this.state.items} deleteItem={this.deleteItem}/>
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );

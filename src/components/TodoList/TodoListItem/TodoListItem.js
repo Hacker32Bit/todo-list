@@ -16,6 +16,7 @@ class TodoListItem extends Component {
     isImportant: this.props.important,
     isEdit: false,
     text: this.props.text,
+    isError: false,
   };
 
   onDone = () => {
@@ -24,8 +25,6 @@ class TodoListItem extends Component {
         isDone: !isDone,
       };
     });
-
-    console.log("Done - ", this.props.text);
   };
 
   onImportant = () => {
@@ -34,24 +33,24 @@ class TodoListItem extends Component {
         isImportant: !isImportant,
       };
     });
-
-    console.log("Important - ", this.state.isImportant);
   };
 
   onDelete = () => {
     this.props.deleteItem(this.props.id);
   };
 
-
   onEdit = () => {
     this.setState(({ isEdit, text }) => {
-      if (!validateInput(text)) {
-        console.log("Error") 
-        return
+      if (isEdit && !validateInput(text)) {
+        console.log("Error");
+        return {
+          isError: true,
+        };
       }
 
       return {
         isEdit: !isEdit,
+        isError: false,
       };
     });
   };
@@ -65,7 +64,7 @@ class TodoListItem extends Component {
   };
 
   render() {
-    const { isDone, isImportant, isEdit, text } = this.state;
+    const { isDone, isImportant, isEdit, text, isError } = this.state;
 
     const textStyle = {
       textDecoration: isDone ? "line-through" : "none",
@@ -73,15 +72,28 @@ class TodoListItem extends Component {
       fontWeight: isDone ? "normal" : isImportant ? "bold" : "normal",
     };
 
+    const inputStyle = {
+      borderColor: isError ? "red" : "#ccc",
+    };
+
     return (
       <li className="list-item">
         {isEdit ? (
-          <input
-            type="text"
-            className="list-item-edit-input"
-            value={text}
-            onChange={this.onInputEdit}
-          ></input>
+          <div className="item-input-wrapper">
+            <input
+              type="text"
+              className="list-item-edit-input"
+              style={inputStyle}
+              value={text}
+              onChange={this.onInputEdit}
+            />
+
+            {isError ? (
+              <span className="input-error-message">
+                Input text is required
+              </span>
+            ) : null}
+          </div>
         ) : (
           <span className="item-text" style={textStyle} onClick={this.onDone}>
             {text}
