@@ -18,10 +18,10 @@ class AddItem extends Component {
   };
 
   onBtnClick = () => {
-    if (validateInput(this.state.inputValue)) {
+    if (!validateInput(this.state.inputValue)) {
       this.setState({
         isError: true
-      })
+      });
       return
     }
 
@@ -32,7 +32,6 @@ class AddItem extends Component {
       isError: false,
     });
   }
-};
 
   render() {
     return (
