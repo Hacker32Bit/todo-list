@@ -3,7 +3,7 @@ import { Component } from "react";
 import "./error-message.css";
 
 
-export default class ErrorMessage extends Component {
+class ErrorMessage extends Component {
   render() {
     const { message, type } = this.props;
     const style = {};
@@ -25,3 +25,5 @@ export default class ErrorMessage extends Component {
     );
   }
 }
+
+export default ErrorMessage

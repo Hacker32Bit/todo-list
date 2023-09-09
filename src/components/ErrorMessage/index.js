@@ -1,3 +1,3 @@
-import ErrorMessage from "./ErrorMessage.js"
+import ErrorMessage from "./ErrorMessage"
 
 export default ErrorMessage;
