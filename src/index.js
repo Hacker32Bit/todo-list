@@ -16,6 +16,10 @@ class App extends Component {
       { text: "Learn Node.js", important: false, id: 5 },
       { text: "Learn extend Node.js", important: false, id: 6 },
     ],
+    isAll: true,
+    isDone: false,
+    isImportant: false,
+    inputValue: "",
   };
 
   // text = js
@@ -27,14 +31,44 @@ class App extends Component {
    * ]
    */
   handleSearch = (text) => {
-    const { items } = this.state
-    text = text.toLowerCase()
-    
-    return items.filter((item) => item.text.toLowerCase().includes(text))
-  } 
+    const { items } = this.state;
+    text = text.toLowerCase();
+
+    return items.filter((item) => item.text.toLowerCase().includes(text));
+  };
+
+  onSearch = (event) => {
+    this.setState({
+      inputValue: event.target.value
+    })
+  }
+
+  onAll = () => {
+    this.setState({
+      isAll: !this.state.isAll
+    })
+  }
+
+  onDone = () => {
+    this.setState({
+      isDone: !this.state.isDone
+    })
+  }
+
+  onImportant = () => {
+    this.setState({
+      isImportant: !this.state.isImportant
+    })
+  }
+
+  filterItems = () => {
+    return this.handleSearch(this.state.inputValue)
+  }
 
   onAddItem = (text) => {
-    const id = this.state.items.length ? this.state.items[this.state.items.length - 1].id + 1 : 1
+    const id = this.state.items.length
+      ? this.state.items[this.state.items.length - 1].id + 1
+      : 1;
 
     const newItem = {
       text,
@@ -60,20 +94,24 @@ class App extends Component {
       console.log(idx, "---------");
 
       return {
-        items: [
-          ...items.slice(0, idx), 
-          ...items.slice(idx + 1)],
+        items: [...items.slice(0, idx), ...items.slice(idx + 1)],
       };
     });
   };
 
   render() {
-    console.log(this.handleSearch("jS"))
     return (
       <div className="app">
         <Header done={8} important={23} />
-        <Search />
-        <TodoList items={this.state.items} deleteItem={this.deleteItem}/>
+        <Search
+          handleSearch={this.handleSearch}
+          onAll={this.onAll}
+          onDone={this.onDone}
+          onImportant={this.onImportant}
+          onSearch={this.onSearch}
+          inputValue={this.state.inputValue}
+        />
+        <TodoList items={this.filterItems()} deleteItem={this.deleteItem} />
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );
