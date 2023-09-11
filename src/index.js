@@ -45,24 +45,34 @@ class App extends Component {
 
   onAll = () => {
     this.setState({
-      isAll: !this.state.isAll
+      isAll: true,
+      isDone: false,
+      isImportant: false
     })
   }
 
   onDone = () => {
     this.setState({
-      isDone: !this.state.isDone
+      isDone: !this.state.isDone,
+      isAll: false
     })
   }
 
   onImportant = () => {
     this.setState({
-      isImportant: !this.state.isImportant
+      isImportant: !this.state.isImportant,
+      isAll: false
+      
     })
   }
 
   filterItems = () => {
-    return this.handleSearch(this.state.inputValue)
+    let newArr = this.handleSearch(this.state.inputValue)
+    if (!this.state.isAll) {
+      newArr = newArr.filter((item) => item.important === this.state.isImportant)
+    }
+
+    return newArr
   }
 
   onAddItem = (text) => {
