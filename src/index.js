@@ -102,7 +102,7 @@ class App extends Component {
     const visibleItem = this.handleSearch(items, term);
 
     const doneCount = items.filter((el) => el.done).length
-    const importantCount = items.filter((el) => el.important).length
+    const importantCount = items.filter((el) => el.important && !el.done).length
 
     return (
       <div className="app">
