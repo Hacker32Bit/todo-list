@@ -3,15 +3,30 @@ import { Component } from "react";
 import "./search.css";
 
 class Search extends Component {
+  state = {
+    term: "",
+  };
+
+  onSearchChange = (e) => {
+    this.setState({
+      term: e.target.value,
+    });
+    
+    this.props.onSearch(this.state.term)
+  };
 
   render() {
-    const { onAll, onDone, onImportant, onSearch, inputValue } = this.props
     return (
       <div className="search">
-        <input type="text" placeholder="Type text for search..." value={inputValue} onChange={onSearch}/>
-        <button className="search-btn-all" onClick={onAll}>All</button>
-        <button className="search-btn-done" onClick={onDone}>Done</button>
-        <button className="search-btn-important" onClick={onImportant}>Important</button>
+        <input
+          type="text"
+          placeholder="Type text for search..."
+          value={this.state.term}
+          onChange={this.onSearchChange}
+        />
+        <button className="search-btn-all">All</button>
+        <button className="search-btn-done">Done</button>
+        <button className="search-btn-important">Important</button>
       </div>
     );
   }

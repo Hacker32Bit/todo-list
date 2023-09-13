@@ -16,18 +16,13 @@ class App extends Component {
       { text: "Learn Node.js", important: false, id: 5 },
       { text: "Learn extend Node.js", important: false, id: 6 },
     ],
-    term: "Js"
+    term: ""
   };
 
-
-  // text = js
-  /**
-   * items: [
-   *  { text: "Learn JS", important: true, id: 1 },
-   *  { text: "Learn Node.js", important: false, id: 5 },
-   *  { text: "Learn extend Node.js", important: false, id: 6 },
-   * ]
-   */
+  onSearch = (term) => {
+    this.setState({ term })
+  }
+  
   handleSearch = (items, term) => {
     if (term.trim().length === 0){
       return items;
@@ -61,7 +56,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header done={8} important={23} />
-        <Search />
+        <Search onSearch={this.onSearch}/>
         <TodoList items={visibleItem} deleteItem={this.deleteItem} />
         <AddItem onAddItem={this.onAddItem} />
       </div>
