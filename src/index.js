@@ -97,35 +97,16 @@ class App extends Component {
     });
   };
 
-  doneCount = () => {
-    let elementCount = 0;
-
-    this.state.items.forEach(item => {
-      if (item.done)
-        elementCount += 1
-    });
-
-    return elementCount
-  }
-
-  importantCount = () => {
-    let elementCount = 0;
-
-    this.state.items.forEach(item => {
-      if (item.important)
-        elementCount += 1
-    });
-
-    return elementCount
-  }
-
   render() {
     const { items, term } = this.state;
     const visibleItem = this.handleSearch(items, term);
 
+    const doneCount = items.filter((el) => el.done).length
+    const importantCount = items.filter((el) => el.important).length
+
     return (
       <div className="app">
-        <Header done={this.doneCount()} important={this.importantCount()} />
+        <Header done={doneCount} important={importantCount} />
         <Search onSearch={this.onSearch} />
         <TodoList
           items={visibleItem}
