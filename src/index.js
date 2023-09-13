@@ -9,28 +9,28 @@ import "./index.css";
 class App extends Component {
   state = {
     items: [
-      { text: "Learn JS", important: true, id: 1 },
-      { text: "Drink Coffee", important: false, id: 2 },
-      { text: "Learn React", important: false, id: 3 },
-      { text: "Learn TypeScript", important: true, id: 4 },
-      { text: "Learn Node.js", important: false, id: 5 },
-      { text: "Learn extend Node.js", important: false, id: 6 },
+      { text: "Learn JS", important: true, done: false, id: 1 },
+      { text: "Drink Coffee", important: false, done: false, id: 2 },
+      { text: "Learn React", important: false, done: false, id: 3 },
+      { text: "Learn TypeScript", important: true, done: false, id: 4 },
+      { text: "Learn Node.js", important: false, done: false, id: 5 },
+      { text: "Learn extend Node.js", important: false, done: false, id: 6 },
     ],
-    term: ""
+    term: "",
   };
 
   onSearch = (term) => {
-    this.setState({ term })
-  }
-  
+    this.setState({ term });
+  };
+
   handleSearch = (items, term) => {
-    if (term.trim().length === 0){
+    if (term.trim().length === 0) {
       return items;
     }
 
     return items.filter((item) => {
-      return item.text.toLowerCase().indexOf(term.toLowerCase()) > -1
-    })
+      return item.text.toLowerCase().indexOf(term.toLowerCase()) > -1;
+    });
   };
 
   deleteItem = (id) => {
@@ -49,15 +49,67 @@ class App extends Component {
     });
   };
 
+  onImportant = (id) => {
+    this.setState(({ items }) => {
+      const idx = items.findIndex((el) => el.id === id);
+
+      const newItem = {
+        ...items[idx],
+        important: !items[idx].important,
+      };
+
+      return {
+        items: [...items.slice(0, idx), newItem, ...items.slice(idx + 1)],
+      };
+    });
+  };
+
+  onDone = (id) => {
+    this.setState(({ items }) => {
+      const idx = items.findIndex((el) => el.id === id);
+
+      const newItem = {
+        ...items[idx],
+        done: !items[idx].done,
+      };
+
+      return {
+        items: [...items.slice(0, idx), newItem, ...items.slice(idx + 1)],
+      };
+    });
+  };
+
+  onAddItem = (text) => {
+    const id = this.state.items.length
+      ? this.state.items[this.state.items.length - 1].id + 1
+      : 1;
+
+    const newItem = {
+      text,
+      important: false,
+      id,
+    };
+
+    this.setState((prevState) => {
+      return {
+        items: [...prevState.items, newItem],
+      };
+    });
+  };
+
   render() {
     const { items, term } = this.state;
-    const visibleItem = this.handleSearch(items, term)
-
+    const visibleItem = this.handleSearch(items, term);
     return (
       <div className="app">
         <Header done={8} important={23} />
-        <Search onSearch={this.onSearch}/>
-        <TodoList items={visibleItem} deleteItem={this.deleteItem} />
+        <Search onSearch={this.onSearch} />
+        <TodoList
+          items={visibleItem}
+          deleteItem={this.deleteItem}
+          onImportant={this.onImportant}
+          onDone={this.onDone}
+        />
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );
