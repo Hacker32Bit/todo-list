@@ -22,6 +22,7 @@ class App extends Component {
     inputValue: "",
   };
 
+<<<<<<< HEAD
   // text = js
   /**
    * items: [
@@ -75,6 +76,8 @@ class App extends Component {
     return newArr
   }
 
+=======
+>>>>>>> parent of facdc6a (Added handleSearch in App Component)
   onAddItem = (text) => {
     const id = this.state.items.length
       ? this.state.items[this.state.items.length - 1].id + 1

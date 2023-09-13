@@ -34,13 +34,11 @@ class AddItem extends Component {
   }
 
   render() {
-    const { isError } = this.state
-
     return (
       <div className="additem">
 
       {
-        isError ? <ErrorMessage message="Error message text" type="error" /> : null
+        this.state.isError ? <ErrorMessage message="Error message text" type="error" /> : null
       }
         <input
           type="text"
