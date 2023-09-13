@@ -16,11 +16,9 @@ class App extends Component {
       { text: "Learn Node.js", important: false, id: 5 },
       { text: "Learn extend Node.js", important: false, id: 6 },
     ],
-    isAll: true,
-    isDone: false,
-    isImportant: false,
-    inputValue: "",
+    term: "Js"
   };
+
 
   // text = js
   /**
@@ -30,68 +28,14 @@ class App extends Component {
    *  { text: "Learn extend Node.js", important: false, id: 6 },
    * ]
    */
-  handleSearch = (text) => {
-    const { items } = this.state;
-    text = text.toLowerCase();
-
-    return items.filter((item) => item.text.toLowerCase().includes(text));
-  };
-
-  onSearch = (event) => {
-    this.setState({
-      inputValue: event.target.value
-    })
-  }
-
-  onAll = () => {
-    this.setState({
-      isAll: true,
-      isDone: false,
-      isImportant: false
-    })
-  }
-
-  onDone = () => {
-    this.setState({
-      isDone: !this.state.isDone,
-      isAll: false
-    })
-  }
-
-  onImportant = () => {
-    this.setState({
-      isImportant: !this.state.isImportant,
-      isAll: false
-      
-    })
-  }
-
-  filterItems = () => {
-    let newArr = this.handleSearch(this.state.inputValue)
-    if (!this.state.isAll) {
-      newArr = newArr.filter((item) => item.important === this.state.isImportant)
+  handleSearch = (items, term) => {
+    if (term.trim().length === 0){
+      return items;
     }
 
-    return newArr
-  }
-
-
-  onAddItem = (text) => {
-    const id = this.state.items.length
-      ? this.state.items[this.state.items.length - 1].id + 1
-      : 1;
-
-    const newItem = {
-      text,
-      important: false,
-      id,
-    };
-
-    this.setState((prevState) => {
-      return {
-        items: [...prevState.items, newItem],
-      };
-    });
+    return items.filter((item) => {
+      return item.text.toLowerCase().indexOf(term.toLowerCase()) > -1
+    })
   };
 
   deleteItem = (id) => {
@@ -111,18 +55,14 @@ class App extends Component {
   };
 
   render() {
+    const { items, term } = this.state;
+    const visibleItem = this.handleSearch(items, term)
+
     return (
       <div className="app">
         <Header done={8} important={23} />
-        <Search
-          handleSearch={this.handleSearch}
-          onAll={this.onAll}
-          onDone={this.onDone}
-          onImportant={this.onImportant}
-          onSearch={this.onSearch}
-          inputValue={this.state.inputValue}
-        />
-        <TodoList items={this.filterItems()} deleteItem={this.deleteItem} />
+        <Search />
+        <TodoList items={visibleItem} deleteItem={this.deleteItem} />
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );
